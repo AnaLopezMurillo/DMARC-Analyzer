@@ -36,7 +36,7 @@ function timeConverter(UNIX_timestamp){
 
 // main function that parses the XML in the HTML document
 async function main() {
-    const XMLFilePath = './google.com!murojewelry.com!1716336000!1716422399.xml';
+    const XMLFilePath = './ExampleFiles/google.com!murojewelry.com!1716336000!1716422399.xml';
     const XMLDOc = await loadXML(XMLFilePath);
 
     if (XMLDOc) {
@@ -57,12 +57,10 @@ async function main() {
             console.log("Domain: " + d.innerHTML + " Result: " + result[i].innerHTML);
         }
 
-        // let out_ta = document.getElementById("info");
-        // let exampleNode = document.createElement('p');
-        // exampleNode.innerHTML = "hello world";
+        let out_ta = document.getElementById("info");
 
-        // out_ta.append(document.createElement('p').innerHTML = 'Organization: ')
-        // out_ta.append(document.createElement('p').innerHTML = org)
+        out_ta.append(document.createElement('p').innerHTML = 'Organization: ')
+        out_ta.append(document.createElement('p').innerHTML = org)
 
         // out_ta.append(document.createElement('p').innerHTML = '\n')
         // out_ta.append(document.createElement('p').innerHTML = "Time: " + dateStart + " to " + dateEnd);
