@@ -36,7 +36,7 @@ function timeConverter(UNIX_timestamp){
 
 // main function that parses the XML in the HTML document
 async function main() {
-    const XMLFilePath = './ExampleFiles/google.com!murojewelry.com!1716336000!1716422399.xml';
+    const XMLFilePath = './ExampleFiles/google.com!murojewelry.com!1716422400!1716508799.xml';
     const XMLDOc = await loadXML(XMLFilePath);
 
     if (XMLDOc) {
@@ -46,33 +46,60 @@ async function main() {
         const dateStart = timeConverter(date_begin);
         const dateEnd = timeConverter(date_end);
 
-        let doms = XMLDOc.getElementsByTagName('domain');
-        let result = XMLDOc.getElementsByTagName('result');
-
-        console.log("Organization: " + org);
-        console.log("Time: " + dateStart + " to " + dateEnd); 
-
-        let i = 0;
-        for (let d of doms) {
-            console.log("Domain: " + d.innerHTML + " Result: " + result[i].innerHTML);
-        }
-
         let out_ta = document.getElementById("info");
 
-        out_ta.append(document.createElement('p').innerHTML = 'Organization: ')
-        out_ta.append(document.createElement('p').innerHTML = org)
+        let orgP = document.getElementById('org');
+        orgP.innerHTML = 'Organization: ' + org;
 
-        // out_ta.append(document.createElement('p').innerHTML = '\n')
-        // out_ta.append(document.createElement('p').innerHTML = "Time: " + dateStart + " to " + dateEnd);
+        let timeP = document.getElementById('time');
+        timeP.innerHTML = "Time: " + dateStart + " to " + dateEnd
+
+        let i = 0;
+        let ips = XMLDOc.getElementsByTagName('source_ip');
+        let ipP = document.getElementById('ips');
+        for (let d of ips) {
+            let ipSingle = document.createElement('h2');
+            ipSingle.innerHTML = '&emsp; &emsp;' + d.innerHTML
+
+            let policyEval = XMLDOc.getElementsByTagName('policy_evaluated');
+            console.log(policyEval[i]);
+            console.log(policyEval[i].getElementsByTagName('dkim')[0].innerHTML);
+
+            ipP.appendChild(ipSingle);
+
+            // console.log("Source IP: " + d.innerHTML + " Result: " + result[i].innerHTML);
+            i+=1;
+        }
         
+
 
     }
 }
 
-main();
+document.getElementById('xmlForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-// list based off of IP and 
+    const fileIn = document.getElementById('xmlFile');
+    if (fileIn.files.length == 0) {
+        alert('Please enter a valid file!');
+        return;
+    };
 
+    const file = fileIn.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const XMLtext = event.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(XMLtext, "application/xml");
+        console.log(xmlDoc);
+        main();
+    }
+    reader.onerror = function() {
+        alert('Error reading file');
+    };
+    reader.readAsText(file);
+});
 
 // adkim: adherence to alignment mode for DKIM protocol: r = relaxed
 // p = policy employed (p = none, reject)

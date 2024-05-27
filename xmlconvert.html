@@ -1,11 +1,78 @@
 <html>
     <head>
-        <script src="./openXML.js"></script>
+        <script src="./openXML.js" defer></script>
+        <link rel="stylesheet" href="./style.css">
     </head>
 </html>
 <body>
-    <div id="info">
+    <div class="bg-green">
+        <div class="bg-white">
+            <div class="title">
+                <h1>
+                    DMARC Analyzer
+                </h1>
+            </div>
+            <form id="xmlForm">
+                <input type="file" id="xmlFile" name="xmlFile" accept=".xml">
+                <label for="xmlFile" id="customFile">
+                    Upload File
+                </label>
+                <button type="submit" id="Submit"></button>
+                <div class="submit-bg"></div>
+                <label for="Submit" id="customSubmit">
+                    Submit
+                </label>
+            </form>
 
+            <div class="content-column">
+            
+                <!--Left info-->
+                <div class="info">
+                    <div class="d-flex info-column info-header">Organization:</div>
+                    <div class="d-flex info-column info-result" id="org"></div>
+                </div>
+                <div class="info">
+                    <div class="d-flex info-column info-header">Begin Time:</div>
+                    <div class="d-flex info-column info-result" id="begin-time"></div>
+                </div>
+                <div class="info">
+                    <div class="d-flex info-column info-header">End Time:</div>
+                    <div class="d-flex info-column info-result" id="end-time"></div>
+                </div>
+                <div class="info">
+                    <div class="d-flex info-column info-header">adkim:</div>
+                    <div class="d-flex info-column info-result" id="adkim"></div>
+                    <div class="d-flex info-column info-header" >aspf:</div>
+                    <div class="d-flex info-column info-result" id="aspf"></div>
+                </div>
+                <div class="info">
+                    <div class="d-flex info-column info-header">p:</div>
+                    <div class="d-flex info-column info-result" id="p"></div>
+                    <div class="d-flex info-column info-header">pct:</div>
+                    <div class="d-flex info-column info-result" id="pct"></div>
+                </div>
+
+            </div>
+
+            <div class="content-column">
+                <!--Right table-->
+                <div class="info-table">
+                    <table>
+                        <tr>
+                            <td>AAAA</td>
+                            <td>AAAA</td>
+                            <td>AAA</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            
+
+
+        </div>
     </div>
 
 </body>
