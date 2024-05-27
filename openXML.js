@@ -2,24 +2,24 @@
 /* loadXML(filePath: string)
     Reads and loads the XML file at specified file path, and parses as an XML Doc. Returns an error if fetch or parsing fails. 
 */
-async function loadXML(filePath) {
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            throw new Error('fetch failed');
-        }
+// async function loadXML(filePath) {
+//     try {
+//         const response = await fetch(filePath);
+//         if (!response.ok) {
+//             throw new Error('fetch failed');
+//         }
 
-        const XMLtext = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(XMLtext, "application/xml");
+//         const XMLtext = await response.text();
+//         const parser = new DOMParser();
+//         const xmlDoc = parser.parseFromString(XMLtext, "application/xml");
         
-        return xmlDoc;
-    }
-    catch (error) {
-        return new Error('parsing failed');
-        return null;
-    }
-}
+//         return xmlDoc;
+//     }
+//     catch (error) {
+//         return new Error('parsing failed');
+//         return null;
+//     }
+// }
 
 function timeConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp * 1000);
@@ -35,24 +35,41 @@ function timeConverter(UNIX_timestamp){
   }
 
 // main function that parses the XML in the HTML document
-async function main() {
+async function main(XMLDoc) {
     const XMLFilePath = './ExampleFiles/google.com!murojewelry.com!1716422400!1716508799.xml';
-    const XMLDOc = await loadXML(XMLFilePath);
+    const XMLDOc = XMLDoc;
 
     if (XMLDOc) {
         let org = XMLDOc.getElementsByTagName('org_name')[0].innerHTML;
         let date_begin = XMLDOc.getElementsByTagName('begin')[0].innerHTML;
-        let date_end = XMLDOc.getElementsByTagName('end')[0].innerHTML;
+        let date_end = XMLDOc.getElementsByTagName('end')[0].innerHTML;        
         const dateStart = timeConverter(date_begin);
         const dateEnd = timeConverter(date_end);
-
-        let out_ta = document.getElementById("info");
+        let adkim = XMLDOc.getElementsByTagName('adkim')[0].innerHTML;
+        let aspf = XMLDOc.getElementsByTagName('aspf')[0].innerHTML;
+        let pDoc = XMLDOc.getElementsByTagName('p')[0].innerHTML;
+        let pct = XMLDOc.getElementsByTagName('pct')[0].innerHTML;
 
         let orgP = document.getElementById('org');
-        orgP.innerHTML = 'Organization: ' + org;
+        orgP.innerHTML = org;
 
-        let timeP = document.getElementById('time');
-        timeP.innerHTML = "Time: " + dateStart + " to " + dateEnd
+        let timeP = document.getElementById('begin-time');
+        timeP.innerHTML = dateStart
+
+        timeP = document.getElementById('end-time');
+        timeP.innerHTML = dateEnd;
+
+        let adkimP = document.getElementById('adkim');
+        adkimP.innerHTML = adkim;
+
+        let aspfP = document.getElementById('aspf');
+        aspfP.innerHTML = aspf;
+
+        let pP = document.getElementById('p');
+        pP.innerHTML = pDoc;
+
+        let pctP = document.getElementById('pct');
+        pctP.innerHTML = pct;
 
         let i = 0;
         let ips = XMLDOc.getElementsByTagName('source_ip');
@@ -66,13 +83,9 @@ async function main() {
             console.log(policyEval[i].getElementsByTagName('dkim')[0].innerHTML);
 
             ipP.appendChild(ipSingle);
-
-            // console.log("Source IP: " + d.innerHTML + " Result: " + result[i].innerHTML);
             i+=1;
         }
         
-
-
     }
 }
 
@@ -92,8 +105,7 @@ document.getElementById('xmlForm').addEventListener('submit', function(event) {
         const XMLtext = event.target.result;
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(XMLtext, "application/xml");
-        console.log(xmlDoc);
-        main();
+        main(xmlDoc);
     }
     reader.onerror = function() {
         alert('Error reading file');
