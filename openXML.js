@@ -14,7 +14,6 @@ function timeConverter(UNIX_timestamp){
 
 // main function that parses the XML in the HTML document
 async function main(XMLDoc) {
-    window.location.reload();
     const XMLDOc = XMLDoc;
 
     if (XMLDOc) {
@@ -84,7 +83,6 @@ async function main(XMLDoc) {
 
 document.getElementById('xmlForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
     const fileIn = document.getElementById('xmlFile');
     if (fileIn.files.length == 0) {
         alert('Please enter a valid file!');
