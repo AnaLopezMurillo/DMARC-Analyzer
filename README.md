@@ -8,7 +8,7 @@ Provides an analyzer to parse aggregate DMARC XML reports in a user-friendly man
 
 To use, please navigate to [this link](https://analopezmurillo.github.io/Parse-DMARC-XML/) and upload a valid XML file by clicking "Upload File" and "Submit". Information will then be displayed according to the aggregate report. 
 
-For user understand, flavor text explaining each acroynm is also included:
+Flavor text explaining each acroynm is also included:
 
 ![Flavor Text Example](./static/Flavor_Ex.png "Flavor Text Example")
 
