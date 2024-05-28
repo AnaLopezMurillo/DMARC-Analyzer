@@ -14,7 +14,7 @@ function timeConverter(UNIX_timestamp){
 
 // main function that parses the XML in the HTML document
 async function main(XMLDoc) {
-    const XMLFilePath = './ExampleFiles/google.com!murojewelry.com!1716422400!1716508799.xml';
+    window.location.reload();
     const XMLDOc = XMLDoc;
 
     if (XMLDOc) {
@@ -76,12 +76,9 @@ async function main(XMLDoc) {
                 }
                 tr.appendChild(td);
             }  
-
             // add tr to table element in document
             tbody.appendChild(tr);
-
         }
-        
     }
 }
 

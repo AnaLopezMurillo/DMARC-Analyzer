@@ -1,3 +1,15 @@
 # DMARC Analyzer
 
-Website that parses XML generated from a DMARC format in a readable format. Uses Javascript and HTML to parse XML and extract passed and failed DKIM and SPF checks.
+https://analopezmurillo.github.io/Parse-DMARC-XML/
+
+Provides an analyzer to parse aggregate DMARC XML reports in a user-friendly manner. Uses Javascript to extract information from aggregate report and returns an overview of the report in tabular format. 
+
+![Filled DMARC Analyzer Image](./static/Ex_Filled.png "Filled DMARC Analyzer Image")
+
+To use, please navigate to [this link](https://analopezmurillo.github.io/Parse-DMARC-XML/) and upload a valid XML file by clicking "Upload File" and "Submit". Information will then be displayed according to the aggregate report. 
+
+For user understand, flavor text explaining each acroynm is also included:
+
+![Flavor Text Example](./static/Flavor_Ex.png "Flavor Text Example")
+
+For user security, this website runs on memory only and does not store user or XML information. Please note that because of this, analysis data will be lost on page refresh.
