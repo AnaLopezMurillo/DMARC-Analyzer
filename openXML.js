@@ -1,26 +1,4 @@
-
-/* loadXML(filePath: string)
-    Reads and loads the XML file at specified file path, and parses as an XML Doc. Returns an error if fetch or parsing fails. 
-*/
-// async function loadXML(filePath) {
-//     try {
-//         const response = await fetch(filePath);
-//         if (!response.ok) {
-//             throw new Error('fetch failed');
-//         }
-
-//         const XMLtext = await response.text();
-//         const parser = new DOMParser();
-//         const xmlDoc = parser.parseFromString(XMLtext, "application/xml");
-        
-//         return xmlDoc;
-//     }
-//     catch (error) {
-//         return new Error('parsing failed');
-//         return null;
-//     }
-// }
-
+// credit to shomrat on stack overflow for this function
 function timeConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -71,19 +49,37 @@ async function main(XMLDoc) {
         let pctP = document.getElementById('pct');
         pctP.innerHTML = pct;
 
-        let i = 0;
-        let ips = XMLDOc.getElementsByTagName('source_ip');
-        let ipP = document.getElementById('ips');
-        for (let d of ips) {
-            let ipSingle = document.createElement('h2');
-            ipSingle.innerHTML = '&emsp; &emsp;' + d.innerHTML
+        let records = XMLDOc.getElementsByTagName('record');
+        for (let record of records) {
+            let tbody = document.getElementsByTagName('tbody')[0];
+            let tr = document.createElement('tr');
+            tr.classList.add('table-cont');
 
-            let policyEval = XMLDOc.getElementsByTagName('policy_evaluated');
-            console.log(policyEval[i]);
-            console.log(policyEval[i].getElementsByTagName('dkim')[0].innerHTML);
+            let elements = {
+                ip: record.getElementsByTagName('source_ip')[0].innerHTML,
+                email: record.getElementsByTagName('count')[0].innerHTML,
+                header: record.getElementsByTagName('header_from')[0].innerHTML,
+                disposition: record.getElementsByTagName('disposition')[0].innerHTML,
+                dkim: record.getElementsByTagName('dkim')[0].innerHTML,
+                spf: record.getElementsByTagName('spf')[0].innerHTML,
+            }
+            
+            for (const [key, value] of Object.entries(elements)) {
+                let td = document.createElement('td');
+                if (`${value}` == 'fail' || `${value}` == 'pass') {
+                    let div = document.createElement('div');
+                    div.classList.add(`${value}`, 'status-button');
+                    div.innerHTML = `${value}`
+                    td.appendChild(div);
+                } else {
+                    td.innerHTML = `${value}`;
+                }
+                tr.appendChild(td);
+            }  
 
-            ipP.appendChild(ipSingle);
-            i+=1;
+            // add tr to table element in document
+            tbody.appendChild(tr);
+
         }
         
     }
@@ -112,10 +108,3 @@ document.getElementById('xmlForm').addEventListener('submit', function(event) {
     };
     reader.readAsText(file);
 });
-
-// adkim: adherence to alignment mode for DKIM protocol: r = relaxed
-// p = policy employed (p = none, reject)
-// ip from source address
-    // dkim and spf show what what passed
-    // disposition shows what the system did w/ the email
-    // auth_results show individual DKIM and SPF results

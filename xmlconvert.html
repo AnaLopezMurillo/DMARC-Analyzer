@@ -28,7 +28,7 @@
             
                 <!--Left info-->
                 <div class="info">
-                    <div class="d-flex info-column info-header">Organization:</div>
+                    <div class="d-flex info-column info-header">Organization:<span>What organization the DMARC agreggate report is coming from.</span></div>
                     <div class="d-flex info-column info-result" id="org"></div>
                 </div>
                 <div class="info">
@@ -40,15 +40,27 @@
                     <div class="d-flex info-column info-result" id="end-time"></div>
                 </div>
                 <div class="info">
-                    <div class="d-flex info-column info-header">adkim:</div>
+                    <div class="d-flex info-column info-header">adkim:
+                        <span>Alignment mode of the DKIM (DomainKeys Identified Mail) protocol. 
+                        <br>r = relaxed; s = strict
+                        </span>
+                    </div>
                     <div class="d-flex info-column info-result" id="adkim"></div>
-                    <div class="d-flex info-column info-header" >aspf:</div>
+                    <div class="d-flex info-column info-header" >aspf:
+                        <span>Alignment mode of the SPF (Sender Policy Framework) protocol. r=relaxed; s=strict
+                        </span>
+                    </div>
                     <div class="d-flex info-column info-result" id="aspf"></div>
                 </div>
                 <div class="info">
-                    <div class="d-flex info-column info-header">p:</div>
+                    <div class="d-flex info-column info-header">p: 
+                        <span>Policy tag of the DMARC program.<br>none: test mode<br>quarantine: message typically marked as spam<br>reject: mostly marked as spam</span>
+                    </div>
                     <div class="d-flex info-column info-result" id="p"></div>
-                    <div class="d-flex info-column info-header">pct:</div>
+                    <div class="d-flex info-column info-header">pct:
+                        <span>Percentage of emails that go through the DMARC process.
+                        </span>
+                    </div>
                     <div class="d-flex info-column info-result" id="pct"></div>
                 </div>
             </div>
@@ -56,90 +68,43 @@
             <div class="content-column">
                 <!--Right table-->
                 <div class="info-table">
-                    <table>
+                    <table id="info-table">
                         <tr>
-                            <td>Source IP</td>
-                            <td>Emails</td>
-                            <td>Header</td>
-                            <td>Disposition</td>
-                            <td>DKIM</td>
-                            <td>SPF</td>
+                            <td>Source IP
+                                <span>IP address of where emails were sent.</span>
+                            </td>
+                            <td>Emails
+                                <span>
+                                    Number of emails that were sent from source IP.
+                                </span>
+                            </td>
+                            <td>Header
+                                <span>
+                                    Email domain from where emails were attempted to be sent.
+                                </span>
+                            </td>
+                            <td>Disposition
+                                <span>
+                                    What the DMARC policy did the with the emails attempted to be sent. 
+                                </span>
+                            </td>
+                            <td>DKIM
+                                <span>
+                                    DomainKeys Identified Mail authentication result.
+                                </span>
+                            </td>
+                            <td>SPF
+                                <span>
+                                    Sender Policy Framework authentication result.
+                                </span>
+                            </td>
                         </tr>
                         <tr class="hr">
                             <td colspan="7"><hr></td>
                         </tr>
-                        <tr class="table-cont">
-                            <td>123.123.123</td>
-                            <td>1</td>
-                            <td>murojewelry.com</td>
-                            <td>none</td>
-                            <td>
-                                <div class="fail status-button">
-                                    fail
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="table-cont">
-                            <td>123.123.123</td>
-                            <td>1</td>
-                            <td>murojewelry.com</td>
-                            <td>none</td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="table-cont">
-                            <td>123.123.123</td>
-                            <td>1</td>
-                            <td>murojewelry.com</td>
-                            <td>none</td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="table-cont">
-                            <td>123.123.123</td>
-                            <td>1</td>
-                            <td>murojewelry.com</td>
-                            <td>none</td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pass status-button">
-                                    pass
-                                </div>
-                            </td>
-                        </tr>
                     </table>
                 </div>
-
             </div>
-
-            
-
-
         </div>
     </div>
 
